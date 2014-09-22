@@ -152,6 +152,13 @@ class role::phabricator::labs {
        path    => "/srv/phab/phabricator/bin/"
     }
 
+    file { "/srv/phab/phabricator/conf/default.conf.php":
+       replace => "yes", # this is the important property
+       ensure  => "present",
+       content => template('phabricator/default.conf.php.erb'),
+       mode    => 644,
+    }
+    
     package { 'mysql-server': ensure => present }
 
     class { 'mysql::config':
