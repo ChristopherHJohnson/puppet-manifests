@@ -120,8 +120,8 @@ class role::phabricator::labs {
     $mysqlpass = 'labspass'
     $current_tag = 'phT172'
     
-    file { "/srv/phab":
-        ensure => "directory",
+    file { '/srv/phab':
+        ensure => 'directory',
     }
     
     class { '::phabricator':
@@ -143,19 +143,19 @@ class role::phabricator::labs {
 
     git::clone { 'phabricator-sprint':
        directory => '/srv/phab/phabricator/src/extensions',
-       ensure  => "present",
+       ensure  => 'latest',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
-       branch    => 'master'
+       branch    => 'master',
     }
    
-    exec { "storage_update":
-       command => "storage update",
-       path    => "/srv/phab/phabricator/bin/"
+    exec { 'storage_update':
+       command => 'storage update',
+       path    => '/srv/phab/phabricator/bin/',
     }
 
-    file { "/srv/phab/phabricator/conf/default.conf.php":
-       replace => "yes", # this is the important property
-       ensure  => "present",
+    file { '/srv/phab/phabricator/conf/default.conf.php':
+       replace => 'yes',
+       ensure  => 'present',
        content => template('phabricator/default.conf.php.erb'),
        mode    => 644,
     }
