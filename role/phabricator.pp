@@ -141,6 +141,17 @@ class role::phabricator::labs {
         },
     }
 
+    git::clone { 'phabricator-sprint':
+       directory => '/srv/phab/phabricator/src/extensions',
+       origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
+       branch    => 'master'
+   }
+   
+   exec { "storage_update":
+    command => "storage update",
+    path    => "/srv/phab/phabricator/bin/"
+   }
+
     package { 'mysql-server': ensure => present }
 
     class { 'mysql::config':
