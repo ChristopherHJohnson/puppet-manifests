@@ -145,12 +145,12 @@ class role::phabricator::labs {
        directory => '/srv/phab/phabricator/src/extensions',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
        branch    => 'master'
-   }
+    }
    
-   exec { "storage_update":
-    command => "storage update",
-    path    => "/srv/phab/phabricator/bin/"
-   }
+    exec { "storage_update":
+       command => "storage update",
+       path    => "/srv/phab/phabricator/bin/"
+    }
 
     package { 'mysql-server': ensure => present }
 
@@ -167,6 +167,12 @@ class role::phabricator::labs {
         hasstatus  => true,
         require    => Package['mysql-server'],
     }
+    
+    package { 'msgpack':
+        ensure   => 'installed',
+        provider => 'gem',
+    }
+    
     package { 'openjdk-7-jre-headless':
         ensure => present,
     }
