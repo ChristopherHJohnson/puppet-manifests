@@ -142,7 +142,7 @@ class role::phabricator::labs {
     }
 
     git::clone { 'phabricator-sprint':
-       directory => '/srv/phab/phabricator/src/extensions',
+       directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
        ensure  => 'latest',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
        branch    => 'master',
