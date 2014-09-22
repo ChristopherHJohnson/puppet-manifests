@@ -119,6 +119,11 @@ class role::phabricator::labs {
     #pass not sensitive but has to match phab and db
     $mysqlpass = 'labspass'
     $current_tag = 'phT172'
+    
+    file { "/srv/phab":
+        ensure => "directory",
+    }
+    
     class { '::phabricator':
         git_tag          => $current_tag,
         lock_file        => '/var/run/phab_repo_lock',
