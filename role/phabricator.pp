@@ -124,10 +124,6 @@ class role::phabricator::labs {
         ensure => 'directory',
     }
     
-    file { '/srv/phab/phabricator/src/extensions':
-        ensure => 'directory',
-    }
-    
     class { '::phabricator':
         git_tag          => $current_tag,
         lock_file        => '/var/run/phab_repo_lock',
@@ -145,27 +141,6 @@ class role::phabricator::labs {
         },
     }
 
-    #to-do figure out how to delay execution of this command until after phabricator is installed
-    git::clone { 'phabricator-sprint':
-       directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
-       ensure  => 'latest',
-       origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
-       branch    => 'master',
-    }
-    
-    #to-do figure out how to delay execution of this command until after phabricator is installed
-    exec { 'storage_update':
-       command => '/srv/phab/phabricator/bin/storage upgrade --force',
-       path    => '/usr/bin/:/bin/',
-    }
-
-    file { '/srv/phab/phabricator/conf/default.conf.php':
-       replace => 'yes',
-       ensure  => 'present',
-       content => template('phabricator/default.conf.php.erb'),
-       mode    => 644,
-    }
-    
     package { 'mysql-server': ensure => present }
 
     class { 'mysql::config':
@@ -186,6 +161,30 @@ class role::phabricator::labs {
         ensure => present,
     }
 
+    #to-do figure out how to delay execution of these commands until after phabricator is installed
+    file { '/srv/phab/phabricator/src/extensions':
+        ensure => 'directory',
+    }
+    
+    git::clone { 'phabricator-sprint':
+       directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
+       ensure  => 'latest',
+       origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
+       branch    => 'master',
+    }
+    
+   exec { 'storage_update':
+       command => '/srv/phab/phabricator/bin/storage upgrade --force',
+       path    => '/usr/bin/:/bin/',
+    }
+
+    file { '/srv/phab/phabricator/conf/default.conf.php':
+       replace => 'yes',
+       ensure  => 'present',
+       content => template('phabricator/default.conf.php.erb'),
+       mode    => 644,
+    }
+    
     package { 'elasticsearch':
         ensure     => present,
         require    => Package['openjdk-7-jre-headless'],
