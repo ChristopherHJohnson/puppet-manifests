@@ -207,11 +207,19 @@ class role::phabricator::sprint {
        load_path => "/usr/share/augeas/lenses/dist/",
        #lens => "httpd.lns",
        context => "/files/etc/apache2/sites-available/50-phabricator.conf",
-       force => true,
        changes => [
            "set VirtualHost/directive SetEnv",
            "set VirtualHost/*[self::directive='SetEnv']/arg[1] PHABRICATOR_ENV",
            "set VirtualHost/*[self::directive='SetEnv']/arg[2] default",
+       ],
+    }
+    
+    augeas { "test":
+       context => "/files/etc/hosts",
+       changes => [
+        "set *[ipaddr = '127.0.0.1']/canonical localhost",
+        "set *[ipaddr = '127.0.0.1']/alias[1] $hostname",
+        "set *[ipaddr = '127.0.0.1']/alias[2] $hostname.domain.com",
        ],
     }
 }
