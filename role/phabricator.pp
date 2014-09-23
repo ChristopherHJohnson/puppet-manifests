@@ -204,7 +204,7 @@ class role::phabricator::sprint {
        context => "/etc/apache2/sites-available/50-phabricator.conf",
        changes => [
        "set VirtualHost/directive "SetEnv"",
-       "set VirtualHost/arg "PHABRICATOR_ENV default",
+       "set VirtualHost/arg "PHABRICATOR_ENV default"",
        ],
     }
 }
