@@ -145,6 +145,7 @@ class role::phabricator::labs {
         },
     }
 
+    #to-do figure out how to delay execution of this command until after phabricator is installed
     git::clone { 'phabricator-sprint':
        directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
        ensure  => 'latest',
