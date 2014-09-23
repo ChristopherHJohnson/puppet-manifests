@@ -213,13 +213,4 @@ class role::phabricator::sprint {
            "set directive[. ='SetEnv']/arg[2] default",
        ],
     }
-    
-    augeas { "test":
-       context => "/files/etc/hosts",
-       changes => [
-        "set *[ipaddr = '127.0.0.1']/canonical localhost",
-        "set *[ipaddr = '127.0.0.1']/alias[1] $hostname",
-        "set *[ipaddr = '127.0.0.1']/alias[2] $hostname.domain.com",
-       ],
-    }
-}
+  }
