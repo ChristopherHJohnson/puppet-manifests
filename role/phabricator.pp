@@ -206,7 +206,7 @@ class role::phabricator::sprint {
     augeas { "50-phabricator.conf":
        context => "/etc/apache2/sites-available/",
        incl => "50-phabricator.conf",
-       lens => "httpd.aug",
+       lens => "httpd",
        load_path => "/usr/share/augeas/lenses/dist",
        changes => [
        "set VirtualHost/directive SetEnv",
