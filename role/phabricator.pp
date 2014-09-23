@@ -199,4 +199,12 @@ class role::phabricator::sprint {
        content => template('phabricator/default.conf.php.erb'),
        mode    => 644,
     }
+    
+    augeas { "apache_config":
+       context => "/etc/apache2/sites-available/50-phabricator.conf",
+       changes => [
+       "set VirtualHost/directive "SetEnv"",
+       "set VirtualHost/arg "PHABRICATOR_ENV default",
+       ],
+    }
 }
