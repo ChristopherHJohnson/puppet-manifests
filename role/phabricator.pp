@@ -200,8 +200,8 @@ class role::phabricator::sprint {
        mode    => 644,
     }
     
-    augeas { "apache_config":
-       context => "/etc/apache2/sites-available/50-phabricator.conf",
+    augeas { "50-phabricator.conf":
+       context => "/etc/apache2/sites-available/",
        changes => [
        "set VirtualHost/directive SetEnv",
        "set VirtualHost/arg[1] PHABRICATOR_ENV",
