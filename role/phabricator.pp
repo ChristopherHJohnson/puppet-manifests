@@ -177,12 +177,10 @@ class role::phabricator::labs {
 class role::phabricator::sprint {
     require role::phabricator::labs
     
-    file { '/srv/phab/phabricator/src/extensions':
-        ensure => 'directory',
-    }
-    
     git::clone { 'phabricator-sprint':
-       require => File['/srv/phab/phabricator/src/extensions'],
+       file { '/srv/phab/phabricator/src/extensions':
+        ensure => 'directory',
+       }
        directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
        ensure  => 'latest',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
@@ -190,7 +188,7 @@ class role::phabricator::sprint {
     }
     
    exec { 'storage_update':
-       require => File['/srv/phab/phabricator/bin'],
+       require => File['/srv/phab/phabricator/bin/storage'],
        command => '/srv/phab/phabricator/bin/storage upgrade --force',
        path    => '/usr/bin/:/bin/',
     }
