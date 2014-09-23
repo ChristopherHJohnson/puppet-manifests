@@ -124,6 +124,10 @@ class role::phabricator::labs {
         ensure => 'directory',
     }
     
+    file { '/srv/phab/phabricator/src/extensions':
+        ensure => 'directory',
+    }
+    
     class { '::phabricator':
         git_tag          => $current_tag,
         lock_file        => '/var/run/phab_repo_lock',
@@ -174,11 +178,6 @@ class role::phabricator::labs {
         hasrestart => true,
         hasstatus  => true,
         require    => Package['mysql-server'],
-    }
-    
-    package { 'msgpack':
-        ensure   => 'installed',
-        provider => 'gem',
     }
     
     package { 'openjdk-7-jre-headless':
