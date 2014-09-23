@@ -182,7 +182,7 @@ class role::phabricator::sprint {
     }
     
     git::clone { 'phabricator-sprint':
-       require phabricator
+       require => File['/srv/phab/phabricator/src/extensions'],
        directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
        ensure  => 'latest',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
@@ -190,7 +190,7 @@ class role::phabricator::sprint {
     }
     
    exec { 'storage_update':
-       require phabricator
+       require => File['/srv/phab/phabricator/bin'],
        command => '/srv/phab/phabricator/bin/storage upgrade --force',
        path    => '/usr/bin/:/bin/',
     }
