@@ -175,7 +175,7 @@ class role::phabricator::labs {
 }
 
 class role::phabricator::sprint {
-    require role::phabricator::labs,
+    require role::phabricator::labs
     
     file { '/srv/phab/phabricator/src/extensions':
         ensure => 'directory',
