@@ -151,7 +151,8 @@ class role::phabricator::labs {
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
        branch    => 'master',
     }
-   
+    
+    #to-do figure out how to delay execution of this command until after phabricator is installed
     exec { 'storage_update':
        command => '/srv/phab/phabricator/bin/storage upgrade --force',
        path    => '/usr/bin/:/bin/',
