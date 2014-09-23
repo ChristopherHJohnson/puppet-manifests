@@ -203,8 +203,9 @@ class role::phabricator::sprint {
     augeas { "apache_config":
        context => "/etc/apache2/sites-available/50-phabricator.conf",
        changes => [
-       "set VirtualHost/directive "SetEnv"",
-       "set VirtualHost/arg "PHABRICATOR_ENV default"",
+       "set VirtualHost/directive SetEnv",
+       "set VirtualHost/arg[1] PHABRICATOR_ENV",
+       "set VirtualHost/arg[2] default",
        ],
     }
 }
