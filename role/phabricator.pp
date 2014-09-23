@@ -189,7 +189,6 @@ class role::phabricator::sprint {
     }
     
    exec { 'storage_update':
-       require => File['/srv/phab/phabricator/bin/storage'],
        command => '/srv/phab/phabricator/bin/storage upgrade --force',
        path    => '/usr/bin/:/bin/',
     }
