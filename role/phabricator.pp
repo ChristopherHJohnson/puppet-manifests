@@ -199,7 +199,12 @@ class role::phabricator::sprint {
        content => template('phabricator/default.conf.php.erb'),
        mode    => 644,
     }
-     package { 'augeas-tools':
+    
+    package { 'ruby-msgpack':
+        ensure     => present,
+    }
+    
+    package { 'augeas-tools':
         ensure     => present,
     }
     
