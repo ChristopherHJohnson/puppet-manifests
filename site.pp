@@ -1465,6 +1465,7 @@ node 'phab13.eqiad.wmflabs' {
     class { 'base::firewall': }
     include standard-noexim
     include role::phabricator::labs
+    include role::phabricator::sprint
 }
 
 node 'iron.wikimedia.org' {
