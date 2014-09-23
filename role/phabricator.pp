@@ -199,6 +199,9 @@ class role::phabricator::sprint {
        content => template('phabricator/default.conf.php.erb'),
        mode    => 644,
     }
+     package { 'augeas-tools':
+        ensure     => present,
+    }
     
     augeas { "50-phabricator.conf":
        context => "/etc/apache2/sites-available/",
