@@ -180,7 +180,7 @@ class role::phabricator::sprint {
     git::clone { 'phabricator-sprint':
        file { '/srv/phab/phabricator/src/extensions':
         ensure => 'directory',
-       }
+       },
        directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
        ensure  => 'latest',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
