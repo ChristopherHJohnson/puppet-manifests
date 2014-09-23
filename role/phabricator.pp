@@ -161,7 +161,22 @@ class role::phabricator::labs {
         ensure => present,
     }
 
-    #to-do figure out how to delay execution of these commands until after phabricator is installed
+    package { 'elasticsearch':
+        ensure     => present,
+        require    => Package['openjdk-7-jre-headless'],
+    }
+
+    service { 'elasticsearch':
+        ensure     => running,
+        hasrestart => true,
+        hasstatus  => true,
+        require    => Package['elasticsearch'],
+    }
+}
+
+class role::phabricator::sprint {
+    require role::phabricator::labs,
+    
     file { '/srv/phab/phabricator/src/extensions':
         ensure => 'directory',
     }
@@ -183,17 +198,5 @@ class role::phabricator::labs {
        ensure  => 'present',
        content => template('phabricator/default.conf.php.erb'),
        mode    => 644,
-    }
-    
-    package { 'elasticsearch':
-        ensure     => present,
-        require    => Package['openjdk-7-jre-headless'],
-    }
-
-    service { 'elasticsearch':
-        ensure     => running,
-        hasrestart => true,
-        hasstatus  => true,
-        require    => Package['elasticsearch'],
     }
 }
