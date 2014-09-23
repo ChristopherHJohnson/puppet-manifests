@@ -204,12 +204,12 @@ class role::phabricator::sprint {
     }
     
     augeas { "50-phabricator.conf":
-       context => "/files/etc/apache2/sites-available/50-phabricator.conf",
+       #context => "/files/etc/apache2/sites-available/50-phabricator.conf",
        load_path => "/usr/share/augeas/lenses/dist/",
        changes => [
-       "set VirtualHost/directive SetEnv",
-       #"set VirtualHost/*[self::directive='SetEnv']/arg[1] PHABRICATOR_ENV",
-       #"set VirtualHost/*[self::directive='SetEnv']/arg[2] default",
+       "set /files/etc/apache2/sites-available/50-phabricator.conf/VirtualHost/directive SetEnv",
+       "set /files/etc/apache2/sites-available/50-phabricator.conf/VirtualHost/*[self::directive='SetEnv']/arg[1] PHABRICATOR_ENV",
+       "set /files/etc/apache2/sites-available/50-phabricator.conf/VirtualHost/*[self::directive='SetEnv']/arg[2] default",
        ],
     }
 }
