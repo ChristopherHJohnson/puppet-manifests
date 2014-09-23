@@ -177,10 +177,11 @@ class role::phabricator::labs {
 class role::phabricator::sprint {
     require role::phabricator::labs
     
-    git::clone { 'phabricator-sprint':
-       file { '/srv/phab/phabricator/src/extensions':
+    file { '/srv/phab/phabricator/src/extensions':
         ensure => 'directory',
-       },
+    }
+    
+    git::clone { 'phabricator-sprint':
        directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
        ensure  => 'latest',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
