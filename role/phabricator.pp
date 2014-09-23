@@ -153,7 +153,7 @@ class role::phabricator::labs {
     }
    
     exec { 'storage_update':
-       command => '/srv/phab/phabricator/bin/storage upgrade',
+       command => '/srv/phab/phabricator/bin/storage upgrade --force',
        path    => '/usr/bin/:/bin/',
     }
 
