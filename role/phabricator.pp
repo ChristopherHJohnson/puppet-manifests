@@ -178,7 +178,7 @@ class role::phabricator::sprint {
     require role::phabricator::labs
     
     file { '/srv/phab/phabricator/src/extensions':
-        ensure => 'directory',
+        ensure => 'present',
     }
     
     git::clone { 'phabricator-sprint':
@@ -191,6 +191,7 @@ class role::phabricator::sprint {
    exec { 'storage_update':
        command => '/srv/phab/phabricator/bin/storage upgrade --force',
        path    => '/usr/bin/:/bin/',
+       onlyif =>  'test -d /srv/phab/phabricator/bin",
     }
 
     file { '/srv/phab/phabricator/conf/default.conf.php':
