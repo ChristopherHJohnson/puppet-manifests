@@ -205,10 +205,9 @@ class role::phabricator::sprint {
        mode    => 644,
     }
     
-    apache::env { 'apache_chuid':
+    apache::env { 'phabricator_env':
         vars => {
-           PHABRICATOR_ENV => 'default',
-           apache_pid_file => '/var/run/apache2/apache2.pid',
+           phabricator_env => 'default',
         },
     }
     
