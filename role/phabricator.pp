@@ -1,6 +1,5 @@
 #Both app and admin user are limited to the appropriate
 #database based on the connecting host.
-include apache
 include passwords::mysql::phabricator
 $mysql_adminuser = $passwords::mysql::phabricator::admin_user
 $mysql_adminpass = $passwords::mysql::phabricator::admin_pass
@@ -204,6 +203,12 @@ class role::phabricator::sprint {
        ensure  => 'present',
        content => template('phabricator/default.conf.php.erb'),
        mode    => 644,
+    }
+    
+    apache::env { 'phabricator_default':
+        vars => {
+          PHABRICATOR_ENV => 'default',
+        },
     }
     
     augeas { "50-phabricator.conf":
