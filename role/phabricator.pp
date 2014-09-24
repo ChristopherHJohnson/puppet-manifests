@@ -175,7 +175,7 @@ class role::phabricator::labs {
 }
 
 class role::phabricator::sprint {
-
+    $customlib = "'burndown' => '/srv/phab/phabricator-sprint'"
     require role::phabricator::labs
     
     package { [
