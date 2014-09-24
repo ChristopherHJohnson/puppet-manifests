@@ -175,7 +175,7 @@ class role::phabricator::labs {
 }
 
 class role::phabricator::sprint {
-    $customlib = "'burndown' => '/srv/phab/phabricator-sprint'"
+    $customlib = "'burndown' => '/srv/phab/extensions/phabricator-sprint'"
     require role::phabricator::labs
     
     package { [
@@ -185,7 +185,7 @@ class role::phabricator::sprint {
     }
     
     git::clone { 'phabricator-sprint':
-       directory => '/srv/phab/phabricator-sprint',
+       directory => '/srv/phab/extensions/phabricator-sprint',
        ensure  => 'latest',
        origin    => 'https://github.com/wmde/phabricator-sprint.git',
        branch    => 'master',
