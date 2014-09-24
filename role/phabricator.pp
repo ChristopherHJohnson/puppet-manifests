@@ -174,10 +174,9 @@ class role::phabricator::labs {
     }
 }
 
-class role::phabricator::sprint (
-    $phabdir          = '/srv/phab',
-    ) {
-    
+class role::phabricator::sprint {
+
+    $phabdir          = '/srv/phab'
     require role::phabricator::labs
     
     package { [
