@@ -205,24 +205,25 @@ class role::phabricator::sprint {
        mode    => 644,
     }
     
-     apache::def { 'PHABRICATOR_ENV':
-        ensure => present,
+    apache::site { 'phabricator-sprint':
+        content => template('phabricator/phabricator-sprint.conf.erb'),
     }
     
-    apache::env { 'phabricator_env':
-        vars => {
-           phabricator_env => 'default',
-        },
-    }
+    #apache::env { 'phabricator_env':
+    #    vars => {
+    #       phabricator_env => 'default',
+    #    },
+    #}
     
-    augeas { "50-phabricator.conf":
-       load_path => "/usr/share/augeas/lenses/dist/",
+    #augeas { "50-phabricator.conf":
+    #   load_path => "/usr/share/augeas/lenses/dist/",
        #lens => "httpd.lns",
-       context => "/files/etc/apache2/sites-available/50-phabricator.conf",
-       changes => [
-           "set VirtualHost/directive SetEnv",
-           "set directive[. ='SetEnv']/arg[1] PHABRICATOR_ENV",
-           "set directive[. ='SetEnv']/arg[2] default",
-       ],
-    }
-  }
+    #   context => "/files/etc/apache2/sites-available/50-phabricator.conf",
+    #   changes => [
+    #       "set VirtualHost/directive SetEnv",
+    #       "set directive[. ='SetEnv']/arg[1] PHABRICATOR_ENV",
+    #       "set directive[. ='SetEnv']/arg[2] default",
+    #   ],
+    #}
+  #
+}
