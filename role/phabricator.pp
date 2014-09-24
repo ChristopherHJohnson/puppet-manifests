@@ -208,7 +208,7 @@ class role::phabricator::sprint {
     apache::env { 'phabricator_default':
         vars => {
           PHABRICATOR_ENV => 'default',
-        },
+        }
     }
     
     augeas { "50-phabricator.conf":
