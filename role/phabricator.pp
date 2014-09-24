@@ -174,7 +174,7 @@ class role::phabricator::labs {
     }
 }
 
-class role::phabricator::sprint {
+class role::phabricator::sprint inherits apache::site {
     $customlib = "'burndown' => '/srv/phab/extensions/phabricator-sprint'"
     require role::phabricator::labs
     
