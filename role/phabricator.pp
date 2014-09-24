@@ -207,13 +207,12 @@ class role::phabricator::sprint {
     
     apache::env { 'apache_chuid':
         vars => {
-           apache_run_user => 'apache',
+           PHABRICATOR_ENV => 'default',
            apache_pid_file => '/var/run/apache2/apache2.pid',
         },
     }
     
     augeas { "50-phabricator.conf":
-       require => Class['apache::site'],
        load_path => "/usr/share/augeas/lenses/dist/",
        #lens => "httpd.lns",
        context => "/files/etc/apache2/sites-available/50-phabricator.conf",
