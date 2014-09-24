@@ -205,6 +205,10 @@ class role::phabricator::sprint {
        mode    => 644,
     }
     
+     apache::def { 'PHABRICATOR_ENV':
+        ensure => present,
+    }
+    
     apache::env { 'phabricator_env':
         vars => {
            phabricator_env => 'default',
