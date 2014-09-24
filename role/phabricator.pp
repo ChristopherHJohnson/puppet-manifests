@@ -191,7 +191,7 @@ class role::phabricator::sprint {
    exec { 'storage_update':
        command => '/srv/phab/phabricator/bin/storage upgrade --force',
        path    => '/usr/bin/:/bin/',
-       onlyif =>  'test -d /srv/phab/phabricator/bin",
+       onlyif  => 'test -d /srv/phab/phabricator/bin',
     }
 
     file { '/srv/phab/phabricator/conf/default.conf.php':
