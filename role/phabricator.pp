@@ -184,11 +184,8 @@ class role::phabricator::sprint {
             ensure => present;
     }
     
-    file { '/srv/phab/phabricator/src/extensions':
-        ensure => 'present',
-    }
-    
     git::clone { 'phabricator-sprint':
+       before    => Git::Install['phabricator/phabricator'],
        directory => '/srv/phab/phabricator/src/extensions/phabricator-sprint',
        ensure  => 'latest',
        origin    => 'https://github.com/ChristopherHJohnson/phabricator-sprint.git',
