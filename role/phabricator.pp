@@ -205,11 +205,10 @@ class role::phabricator::sprint {
        mode    => 644,
     }
     
-    $docroot = "${phabdir}/phabricator/webroot"
-    $phab_servername = $phab_settings['phabricator.base-uri']
-    apache::site { 'phabricator-sprint':
-        content => template('phabricator/phabricator-sprint.conf.erb'),
-    }
+    #$phab_servername = $phab_settings['phabricator.base-uri']
+    #apache::site { 'phabricator-sprint':
+    #    content => template('phabricator/phabricator-sprint.conf.erb'),
+    #}
     
     #apache::env { 'phabricator_env':
     #    vars => {
