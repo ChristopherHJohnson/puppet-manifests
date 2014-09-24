@@ -176,7 +176,6 @@ class role::phabricator::labs {
 
 class role::phabricator::sprint {
 
-    $phabdir          = '/srv/phab'
     require role::phabricator::labs
     
     package { [
@@ -185,7 +184,7 @@ class role::phabricator::sprint {
             ensure => present;
     }
     
-    file { '${phabdir}/phabricator/src/extensions':
+    file { '/srv/phab/phabricator/src/extensions':
         ensure => 'present',
     }
     
