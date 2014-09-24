@@ -205,10 +205,11 @@ class role::phabricator::sprint {
        mode    => 644,
     }
     
-    apache::env { 'phabricator_default':
+    apache::env { 'apache_chuid':
         vars => {
-          PHABRICATOR_ENV => 'default',
-        }
+           apache_run_user => 'apache',
+           apache_pid_file => '/var/run/apache2/apache2.pid',
+        },
     }
     
     augeas { "50-phabricator.conf":
