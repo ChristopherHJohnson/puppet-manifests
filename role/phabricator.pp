@@ -1,5 +1,6 @@
 #Both app and admin user are limited to the appropriate
 #database based on the connecting host.
+include apache::site
 include passwords::mysql::phabricator
 $mysql_adminuser = $passwords::mysql::phabricator::admin_user
 $mysql_adminpass = $passwords::mysql::phabricator::admin_pass
@@ -175,7 +176,7 @@ class role::phabricator::labs {
 }
 
 class role::phabricator::sprint inherits apache::site {
-    include apache::site
+    
     $customlib = "'burndown' => '/srv/phab/extensions/phabricator-sprint'"
     require role::phabricator::labs
     
