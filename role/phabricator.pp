@@ -177,7 +177,13 @@ class role::phabricator::labs {
 class role::phabricator::sprint {
     require role::phabricator::labs
     
-    file { '/srv/phab/phabricator/src/extensions':
+    package { [
+        'ruby-msgpack',
+        'augeas-tools']:
+            ensure => present;
+    }
+    
+    file { '${phabdir}/phabricator/src/extensions':
         ensure => 'present',
     }
     
@@ -199,14 +205,6 @@ class role::phabricator::sprint {
        ensure  => 'present',
        content => template('phabricator/default.conf.php.erb'),
        mode    => 644,
-    }
-    
-    package { 'ruby-msgpack':
-        ensure     => present,
-    }
-    
-    package { 'augeas-tools':
-        ensure     => present,
     }
     
     augeas { "50-phabricator.conf":
