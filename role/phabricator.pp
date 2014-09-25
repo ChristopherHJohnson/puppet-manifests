@@ -222,6 +222,10 @@ class role::phabricator::sprint {
         ensure => present,
     }
     
+    package { 'ruby-msgpack':
+        ensure => present,
+    }
+    
     package { 'elasticsearch':
         ensure     => present,
         require    => Package['openjdk-7-jre-headless'],
@@ -234,12 +238,6 @@ class role::phabricator::sprint {
         require    => Package['elasticsearch'],
     }': ensure => present }
 
-    package { [
-        'ruby-msgpack',
-        'augeas-tools']:
-            ensure => present;
-    }
-    
     #git::clone { 'phabricator-sprint':
     #   directory => '/srv/phab/extensions/phabricator-sprint',
     #   ensure  => 'latest',
