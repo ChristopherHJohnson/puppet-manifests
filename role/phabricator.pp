@@ -203,6 +203,7 @@ class role::phabricator::sprint {
         },
     }
     
+    package { 'mysql-server': ensure => present }
     class { 'mysql::config':
         root_password => $mysqlpass,
         sql_mode      => 'STRICT_ALL_TABLES',
@@ -215,6 +216,10 @@ class role::phabricator::sprint {
         hasrestart => true,
         hasstatus  => true,
         require    => Package['mysql-server'],
+    }
+    
+    package { 'openjdk-7-jre-headless':
+        ensure => present,
     }
     
     package { 'elasticsearch':
@@ -231,8 +236,6 @@ class role::phabricator::sprint {
 
     package { [
         'ruby-msgpack',
-        'mysql-server',
-        'openjdk-7-jre-headless',
         'augeas-tools']:
             ensure => present;
     }
