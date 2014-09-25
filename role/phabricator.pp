@@ -176,21 +176,73 @@ class role::phabricator::labs {
 
 class role::phabricator::sprint {
     
-    $customlib = "'burndown' => '/srv/phab/extensions/phabricator-sprint'"
-    require role::phabricator::labs
+    #pass not sensitive but has to match phab and db
+    $mysqlpass = 'labspass'
+    $current_tag = 'phT172'
+    #$customlib = "'burndown' => '/srv/phab/extensions/phabricator-sprint'"
+    #require role::phabricator::labs
     
+    file { '/srv/phab':
+        ensure => 'directory',
+    }
+    
+    class { '::phabricator':
+        git_tag          => $current_tag,
+        lock_file        => '/var/run/phab_repo_lock',
+        auth_type        => 'local',
+        extension_tag    => 'HEAD',
+        extensions       => ['SecurityPolicyEnforcerAction.php'],
+        settings         => {
+            'search.elastic.host'                => 'http://localhost:9200',
+            'search.elastic.namespace'           => 'phabricator',
+            'darkconsole.enabled'                => true,
+            'phabricator.base-uri'               => "https://${::hostname}.wmflabs.org",
+            'phabricator.show-beta-applications' => true,
+            'mysql.pass'                         => $mysqlpass,
+            'auth.require-email-verification'    => false,
+        },
+    }
+    
+    class { 'mysql::config':
+        root_password => $mysqlpass,
+        sql_mode      => 'STRICT_ALL_TABLES',
+        restart       => true,
+        require       => Package['mysql-server'],
+    }
+
+    service { 'mysql':
+        ensure     => running,
+        hasrestart => true,
+        hasstatus  => true,
+        require    => Package['mysql-server'],
+    }
+    
+    package { 'elasticsearch':
+        ensure     => present,
+        require    => Package['openjdk-7-jre-headless'],
+    }
+
+    service { 'elasticsearch':
+        ensure     => running,
+        hasrestart => true,
+        hasstatus  => true,
+        require    => Package['elasticsearch'],
+    }': ensure => present }
+
     package { [
         'ruby-msgpack',
+        'mysql-server',
+        'openjdk-7-jre-headless',
         'augeas-tools']:
             ensure => present;
     }
     
-    git::clone { 'phabricator-sprint':
-       directory => '/srv/phab/extensions/phabricator-sprint',
-       ensure  => 'latest',
-       origin    => 'https://github.com/wmde/phabricator-sprint.git',
-       branch    => 'master',
-    }
+    #git::clone { 'phabricator-sprint':
+    #   directory => '/srv/phab/extensions/phabricator-sprint',
+    #   ensure  => 'latest',
+    #   origin    => 'https://github.com/wmde/phabricator-sprint.git',
+    #   branch    => 'master',
+    #}
     
    exec { 'storage_update':
        command => '/srv/phab/phabricator/bin/storage upgrade --force',
@@ -198,12 +250,12 @@ class role::phabricator::sprint {
        onlyif  => 'test -d /srv/phab/phabricator/bin',
     }
 
-    file { '/srv/phab/phabricator/conf/default.conf.php':
-       replace => 'yes',
-       ensure  => 'present',
-       content => template('phabricator/default.conf.php.erb'),
-       mode    => 644,
-    }
+    #file { '/srv/phab/phabricator/conf/default.conf.php':
+    #   replace => 'yes',
+    #   ensure  => 'present',
+    #   content => template('phabricator/default.conf.php.erb'),
+    #   mode    => 644,
+    #}
     
     #$phab_servername = $phab_settings['phabricator.base-uri']
     #apache::site { 'phabricator-sprint':
