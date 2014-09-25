@@ -222,10 +222,6 @@ class role::phabricator::sprint {
         ensure => present,
     }
     
-    package { 'ruby-msgpack':
-        ensure => present,
-    }
-    
     package { 'elasticsearch':
         ensure     => present,
         require    => Package['openjdk-7-jre-headless'],
