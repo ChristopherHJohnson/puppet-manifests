@@ -129,7 +129,8 @@ class role::phabricator::labs {
         lock_file        => '/var/run/phab_repo_lock',
         auth_type        => 'local',
         extension_tag    => 'HEAD',
-        extensions       => ['SecurityPolicyEnforcerAction.php'],
+        extensions       => ['SecurityPolicyEnforcerAction.php',
+                              'Sprint'],
         settings         => {
             'search.elastic.host'                => 'http://localhost:9200',
             'search.elastic.namespace'           => 'phabricator',
