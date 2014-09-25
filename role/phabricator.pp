@@ -139,7 +139,7 @@ class role::phabricator::labs {
             'phabricator.show-beta-applications' => true,
             'mysql.pass'                         => $mysqlpass,
             'auth.require-email-verification'    => false,
-            'load-libraries'                     => {'burndown':'/srv/phab/extensions/Sprint'}
+            'load-libraries'                     => {'burndown':'/srv/phab/extensions/Sprint'},
         },
     }
 
