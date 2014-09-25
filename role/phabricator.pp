@@ -236,7 +236,7 @@ class role::phabricator::sprint {
         hasrestart => true,
         hasstatus  => true,
         require    => Package['elasticsearch'],
-    }': ensure => present }
+    }
 
     #git::clone { 'phabricator-sprint':
     #   directory => '/srv/phab/extensions/phabricator-sprint',
