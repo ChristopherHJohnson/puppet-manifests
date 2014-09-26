@@ -129,6 +129,7 @@ class role::phabricator::labs {
         lock_file        => '/var/run/phab_repo_lock',
         auth_type        => 'local',
         extension_tag    => 'HEAD',
+        lib_tag          => 'HEAD',
         extensions       => ['SecurityPolicyEnforcerAction.php',
                               'Sprint'],
         settings         => {
