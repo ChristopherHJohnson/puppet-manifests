@@ -129,9 +129,8 @@ class role::phabricator::labs {
         lock_file        => '/var/run/phab_repo_lock',
         auth_type        => 'local',
         extension_tag    => 'HEAD',
-        lib_tag          => 'HEAD',
-        extensions       => ['SecurityPolicyEnforcerAction.php',
-                              'Sprint'],
+        libext_tag       => 'HEAD',
+        extensions       => ['SecurityPolicyEnforcerAction.php'],
         settings         => {
             'search.elastic.host'                => 'http://localhost:9200',
             'search.elastic.namespace'           => 'phabricator',
@@ -140,7 +139,7 @@ class role::phabricator::labs {
             'phabricator.show-beta-applications' => true,
             'mysql.pass'                         => $mysqlpass,
             'auth.require-email-verification'    => false,
-            'load-libraries'                     => { 'burndown' => '/srv/phab/libraries/Sprint' },
+            'load-libraries'                     => { 'burndown' => '/srv/phab/libphutil/src/extensions/Sprint' },
         },
     }
 
