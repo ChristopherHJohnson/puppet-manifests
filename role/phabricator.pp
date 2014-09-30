@@ -128,8 +128,11 @@ class role::phabricator::labs {
         git_tag          => $current_tag,
         lock_file        => '/var/run/phab_repo_lock',
         auth_type        => 'local',
-        extension_tag    => 'HEAD',
         libext_tag       => 'HEAD',
+        libraries        => {
+            'burndown'                           => '/srv/phab/libext/Sprint',
+        },
+        extension_tag    => 'HEAD',
         extensions       => ['SecurityPolicyEnforcerAction.php'],
         settings         => {
             'search.elastic.host'                => 'http://localhost:9200',
